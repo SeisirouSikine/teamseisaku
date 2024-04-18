@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生情報変更</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        form {
+            width: 50%;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        form div {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 100px;
+            font-weight: bold;
+        }
+        input[type="text"], select {
+            width: 200px;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>学生情報変更</h2>
+    <form method="POST" th:action="'/gakuseihensyu/' + ${student.id}" th:object="${student}">
+        <div>
+            <label for="entYear">入学年度:</label>
+            <span th:text="${student.entYear}"></span><br>
+            <label for="no">学生番号:</label>
+            <span th:text="${student.no}"></span><br>
+        </div>
+        <div>
+            <label for="name">氏名:</label>
+            <input type="text" id="name" name="name" th:value="${student.name}" required>
+        </div>
+        <div>
+            <label for="classNum">クラス:</label>
+            <select id="classNum" name="classNum">
+                <option value="101" th:selected="${student.classNum == '101'}">101</option>
+                <option value="102" th:selected="${student.classNum == '102'}">102</option>
+                <option value="103" th:selected="${student.classNum == '103'}">103</option>
+            </select>
+        </div>
+        <div>
+            <label for="isAttend">在学中:</label>
+            <input type="checkbox" id="isAttend" name="isAttend" th:checked="${student.isAttend}">
+        </div>
+        <button type="submit">変更</button>
+    </form>
+    <a href="/gakuseikannri">戻る</a>
+</body>
+</html>

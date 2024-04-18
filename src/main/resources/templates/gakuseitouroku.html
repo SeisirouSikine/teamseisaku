@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        form {
+            width: 300px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        select {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h2>学生登録フォーム</h2>
+    <form action="/gakuseitouroku" method="post" id="studentForm">
+        <label for="entYear">入学年度</label>
+        <select name="entYear" id="entYear">
+            <option value="2020">2020年</option>
+            <option value="2021">2021年</option>
+            <option value="2022">2022年</option>
+            <option value="2023">2023年</option>
+            <option value="2024">2024年</option>
+        </select>
+        <label for="studentNo">学生番号</label>
+        <input type="text" id="studentNo" name="no" maxlength="10" placeholder="学生番号を入力してください">
+        <span class="error" id="studentNoError"></span>
+        <label for="studentName">氏名</label>
+        <input type="text" id="studentName" name="name" maxlength="30" placeholder="氏名を入力してください">
+        <span class="error" id="studentNameError"></span>
+        <label for="classNum">クラス</label>
+        <select name="classNum" id="classNum">
+            <option value="101">101</option>
+            <option value="102">102</option>
+            <option value="103">103</option>
+        </select>
+        <input type="hidden" id="isAttend" name="isAttend" th:value="true"/>
+        <button type="submit" name="end">登録して終了</button>
+    </form>
+    <a href="/">戻る</a>
+
+    <script>
+        document.getElementById('studentForm').addEventListener('submit', function(event) {
+            var studentNoInput = document.getElementById('studentNo');
+            var studentNameInput = document.getElementById('studentName');
+            var studentNoError = document.getElementById('studentNoError');
+            var studentNameError = document.getElementById('studentNameError');
+            
+            studentNoError.textContent = '';
+            studentNameError.textContent = '';
+            
+            if (!studentNoInput.value) {
+                studentNoError.textContent = '学生番号を入力してください';
+                event.preventDefault();
+            }
+            
+            if (!studentNameInput.value) {
+                studentNameError.textContent = '氏名を入力してください';
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
