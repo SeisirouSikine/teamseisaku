@@ -46,7 +46,7 @@ public SecurityFilterChain filterChain(HttpSecurity http)
 			.anyRequest().authenticated();
 	});
 	http.formLogin(form -> {
-		form.defaultSuccessUrl("/home/");
+		form.defaultSuccessUrl("/");
 	});
 	return http.build();
 	}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -108,40 +108,32 @@
             </ul>
         </div>
         <h2>科目管理</h2>
-        
-
-        <div id="searchResultCount"></div>
 
         <table id="subjectTable">
             <thead>
                 <tr>
                     <th style="width: 10%; text-align: left;">科目コード</th>
                     <th style="width: 10%; text-align: left;">科目名</th>
-                    
-                    
                     <th style="width: 10%; text-align: left;">編集</th>
                     <th style="width: 10%; text-align: left;">消去</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="subject : ${subject}" >
+                <tr th:each="subject : ${subject}">
                     <td style="vertical-align: top; text-align: left;" th:text="${subject.cd}"></td>
-                    <td style="vertical-align: top; text-align: left;" th:text="${subject.name}"></td>   
-                    
-
+                    <td style="vertical-align: top; text-align: left;" th:text="${subject.name}"></td>
                     <td style="vertical-align: top; text-align: left;">
                         <a th:href="@{/gakuseihensyu/{id}(id=${subject.id})}">変更</a>
-                    </td> 
+                    </td>
                     <td style="vertical-align: top; text-align: left;">
-                        <a th:href="@{'/delete/' + ${subject.id}}">消去</a>
+                        <a th:href="@{/delete/{id}(id=${subject.id})}">消去</a>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <div th:if="${#lists.isEmpty(subject)}" class="text-center">
+            データなし
+        </div>
     </div>
-    <div th:if="${#lists.isEmpty(students)}" class="text-center">
-        データなし
-    </div>
-
 </body>
 </html>
