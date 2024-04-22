@@ -3,6 +3,8 @@ package jgroup.StudentManager.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +20,12 @@ public class KamokuController {
     private SubjectService subjectService;
     
     @GetMapping("/kamokukannri")
-    public String getAllSubject(Model model) {
+    public String getAllSubject(@AuthenticationPrincipal UserDetails user, Model model) {
         List<Subject> subject = subjectService.getSubjectList();
         model.addAttribute("subject", subject);
+        model.addAttribute("user2", user); 
         return "kamokukannri";
+ 
     }
     
     @GetMapping("/kamokutouroku")

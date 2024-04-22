@@ -3,6 +3,8 @@ package jgroup.StudentManager.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +22,10 @@ public class TourokuController {
 	
 	// 全生徒を取得
 	@GetMapping("/gakuseikannri")
-	public String getAllStudents(Model model) {
+	public String getAllStudents(@AuthenticationPrincipal UserDetails user, Model model) {
 		List<Student> students = studentService.getStudentList();
         model.addAttribute("students", students);
+        model.addAttribute("user2",user);
         return "gakuseikannri";
 	}
 	
