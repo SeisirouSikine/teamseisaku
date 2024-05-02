@@ -6,9 +6,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
  
 @Entity
-@Table(name = "CLASS_NUM")
+@Table(name = "CLASSNUM")
 public class Classnum {
 	@Id
+    private Long id;
     @Column(name = "SCHOOL_CD", nullable = false, length = 3)
     private String schoolCd;
 	

@@ -23,16 +23,16 @@ public class Student {
     private String name;
  
     @Column(name = "ENTYEAR")
-    private Integer entYear;
+    private Integer entyear;
  
     @Column(name = "CLASSNUM", length = 3)
-    private String classNum;
+    private String classnum;
  
     @Column(name = "ISATTEND")
-    private Boolean isAttend;
+    private Boolean isattend;
  
     @Column(name = "SCHOOLCD", length = 3)
-    private String schoolCd;
+    private String schoolcd;
     
 //    public Boolean getIsAttend() {
 //        return this.isAttend != null ? this.isAttend : true;

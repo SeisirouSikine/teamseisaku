@@ -13,12 +13,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jgroup.StudentManager.model.Student;
+import jgroup.StudentManager.model.Subject;
 import jgroup.StudentManager.service.StudentService;
+import jgroup.StudentManager.service.SubjectService;
  
 @Controller
 public class TourokuController {
 	@Autowired
     private StudentService studentService;
+	@Autowired
+	private SubjectService subjectService;
 	
 	// 全生徒を取得
 	@GetMapping("/gakuseikannri")
@@ -31,7 +35,7 @@ public class TourokuController {
 	
 	@PostMapping("/gakuseikannri")
 	public String filterStudents(Model model, @ModelAttribute("filterModel") Student student) {
-	    List<Student> filteredStudents = studentService.filterStudents(student.getEntYear(), student.getClassNum(), student.getIsAttend());
+	    List<Student> filteredStudents = studentService.filterStudents(student.getEntyear(), student.getClassnum(), student.getIsattend());
 	    model.addAttribute("students", filteredStudents);
 	    return "gakuseikannri";
 	}
@@ -77,8 +81,8 @@ public class TourokuController {
 	    Student student = studentService.getStudentById(id);
 	    if (student != null) {
 	        student.setName(updatedStudent.getName());
-	        student.setClassNum(updatedStudent.getClassNum());
-	        student.setIsAttend(updatedStudent.getIsAttend());
+	        student.setClassnum(updatedStudent.getClassnum());
+	        student.setIsattend(updatedStudent.getIsattend());
 	        studentService.updateStudent(student);
 	    }
 	    return "redirect:/gakuseikannri";
@@ -88,9 +92,27 @@ public class TourokuController {
 	@GetMapping("/delete/{id}")
 	public String deleteStudent(@PathVariable("id") Long id, Model model) {
 	    Student student = studentService.getStudentById(id);
-	    student.setIsAttend(false);
+	    student.setIsattend(false);
 	    studentService.updateStudent(student);
 	    //studentService.deleteStudent(id);
 	    return "redirect:/gakuseikannri";
+	}
+	
+	
+	@GetMapping("/seisekitouroku")
+	public String getAllSubjects(@AuthenticationPrincipal UserDetails name, Model model) {
+		List<Subject> subjects = subjectService.getSubjectList();
+        model.addAttribute("subject", subjects);
+        model.addAttribute("user2",name);
+        return "seisekitouroku";
+	}
+	
+	
+	
+	@PostMapping("/seisekitouroku")
+	public String filterSubjects(Model model, @ModelAttribute("filterModel") Subject subject, Student student) {
+	    List<Subject> filteredSubjects = subjectService.filterSubjects(student.getEntyear(), student.getClassnum(), subject.getName());
+	    model.addAttribute("students", filteredSubjects);
+	    return "gakuseikannri";
 	}
 }

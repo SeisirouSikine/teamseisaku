@@ -19,7 +19,7 @@ public class Teacher {
     private String name;
     
     @Column(name = "SCHOOL_CD", length = 3)
-    private String school_cd;
+    private String schoolCd;
     
     public String getId() {
         return id;
@@ -38,10 +38,10 @@ public class Teacher {
     }
     
     public String getSchool_cd() {
-        return school_cd;
+        return schoolCd;
     }
  
-    public void setSchool_cd(String school_cd) {
-        this.school_cd = school_cd;
+    public void setSchool_cd(String schoolCd) {
+        this.schoolCd = schoolCd;
     }
 }

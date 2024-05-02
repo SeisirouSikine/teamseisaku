@@ -10,6 +10,7 @@ import jakarta.persistence.Table;
 @Table(name = "SCHOOL")
 public class School {
 	 @Id
+	 private Long id;
 	 @Column(name = "CD", nullable = false, length = 3)
 	  private String cd;
 	

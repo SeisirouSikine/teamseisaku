@@ -37,8 +37,8 @@ public class StudentService {
         return studentRepository.findById(id).orElse(null);
     }
     
-    public List<Student> filterStudents(Integer entYear, String classNum, boolean isAttend) {
-        return studentRepository.findByEntYearAndClassNumAndIsAttend(entYear, classNum, isAttend);
+    public List<Student> filterStudents(Integer Entyear, String Classnum, boolean IsAttend) {
+        return studentRepository.findByEntyearAndClassnumAndIsattend(Entyear, Classnum, IsAttend);
     }
     
 }
