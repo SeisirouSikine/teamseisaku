@@ -34,9 +34,8 @@ public class Student {
     @Column(name = "SCHOOLCD", length = 3)
     private String schoolcd;
     
-//    public Boolean getIsAttend() {
-//        return this.isAttend != null ? this.isAttend : true;
-//    }
+    public Boolean getIsattend() {
+        return this.isattend != null ? this.isattend : true;    }
 
     
 }

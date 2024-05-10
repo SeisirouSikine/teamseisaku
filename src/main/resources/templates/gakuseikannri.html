@@ -96,10 +96,10 @@
 <body>
     <header>
         <h1>得点管理システム</h1>
-        <div id="logout">
-			<span th:text="ログイン中のユーザー + ${user2.username}"></span>
-        	<a href="/logout">ログアウト</a>
-    	</div>
+<!--        <div id="logout">-->
+<!--			<span th:text="ログイン中のユーザー + ${user2.username}"></span>-->
+<!--        	<a href="/logout">ログアウト</a>-->
+<!--    	</div>-->
     </header>
     <div id="content">
         <div id="sidebar">
@@ -112,8 +112,8 @@
         <h2>学生管理</h2>
         <form id="filterForm" th:action="@{/gakuseikannri}" method="post" style="display: flex;">
     <div style="margin-right: 10px;">
-        <label for="entYear">入学年度</label>
-        <select name="entYear" id="entYear">
+        <label for="entyear">入学年度</label>
+        <select name="entyear" id="entyear">
             <option value="">------</option>
             <option value="2020">2020</option>
             <option value="2021">2021</option>
@@ -125,7 +125,7 @@
     </div>
     <div style="margin-right: 10px;">
         <label for="class">クラス</label>
-        <select name="classNum" id="classNum">
+        <select name="classnum" id="classnum">
             <option value="">------</option>
             <option value="101">101</option>
             <option value="102">102</option>
@@ -133,8 +133,8 @@
         </select>
     </div>
     <div style="margin-right: 10px;">
-    <label for="isAttend">在学中</label>
-    <input type="checkbox" id="isAttend" name="isAttend">
+    <label for="isattend">在学中</label>
+    <input type="checkbox" id="isattend" name="isattend">
 </div>
 
     
@@ -157,12 +157,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="student : ${students}" th:if="${student.isAttend != false}">
-                    <td style="vertical-align: top; text-align: left;" th:text="${student.entYear}"></td>
+                <tr th:each="student : ${students}" th:if="${student.isattend != false}">
+                    <td style="vertical-align: top; text-align: left;" th:text="${student.entyear}"></td>
                     <td style="vertical-align: top; text-align: left;" th:text="${student.no}"></td>   
                     <td style="vertical-align: top; text-align: left;" th:text="${student.name}"></td> 
-                    <td style="vertical-align: top; text-align: left;" th:text="${student.classNum}"></td> 
-                    <td style="vertical-align: top; text-align: left;" th:text="${student.isAttend == null ? '×' : (student.isAttend ? '〇' : '×')}"></td>
+                    <td style="vertical-align: top; text-align: left;" th:text="${student.classnum}"></td> 
+                    <td style="vertical-align: top; text-align: left;" th:text="${student.isattend == null ? '×' : (student.isattend ? '〇' : '×')}"></td>
 
                     <td style="vertical-align: top; text-align: left;">
                         <a th:href="@{/gakuseihensyu/{id}(id=${student.id})}">変更</a>

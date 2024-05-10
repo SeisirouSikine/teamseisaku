@@ -1,10 +1,124 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>title nyuuryoku</title>
+    <style>
+        /* Add your CSS styles here */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
-aaaaaa
+//seisekitouroku
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>title nyuuryoku</title>
+</head>
+<h2>学生管理</h2>
+<form id="filterForm" th:action="@{/seisekitouroku}" method="post" style="display: flex;">
+    <div style="margin-right: 10px;">
+        <label for="entyear">入学年度</label>
+        <select name="entyear" id="entyear">
+            <option value="">------</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+        </select>
+    </div>
+    <div style="margin-right: 10px;">
+        <label for="class">クラス</label>
+        <select name="classnum" id="classnum">
+            <option value="">------</option>
+            <option value="101">101</option>
+            <option value="102">102</option>
+            <option value="103">103</option>
+        </select>
+    </div>
+
+	<div style="margin-right: 10px;">
+		<label for="name">科目</label>
+			<select name="name" id="name">
+				<tr th:each="subject : ${subject}" >
+					<option value="">------</option>
+					<option value="cd"><td style="vertical-align: top; text-align: center;" th:text="${subject.name}"></td></option>
+
+				</tr>
+				
+			</select>
+	</div>
+	
+	
+	
+		<div style="margin-right: 10px;">
+		<label for="name">回数</label>
+			<select name="no" id="no">
+				<option value="">------</option>
+				<option value="1">1回目</option>
+				<option value="2">2回目</option>
+				
+			</select>
+	</div>
+
+    
+ 
+    <button type="submit" id="filterButton" class="btn">絞り込む</button>
+    
+    
+    
+    
+</form>
+
+<div id="searchResultCount"></div>
+
+	<form th:object="${test}" th:action="@{/pointtouroku}" method="post" style="display: flex;">
+<table>
+    <thead>
+    <tr>
+        <th>入学年度</th>
+        <th>クラス</th>
+        <th>学生番号</th>
+        <th>氏名</th>
+        <th>点数</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Rows for student records -->
+    <tr th:each="student : ${students}" th:if="${student.isattend != false}">
+        <td th:text="${student.entyear}"></td>
+        <td th:text="${student.classnum}"></td>
+        <td th:text="${student.no}" ></td>
+        <td th:text="${student.name}"></td>
+        <!-- Include other columns as needed -->
+        <td>
+        <input type="text" id="point" name="point" maxlength="10" >
+        </td>
+        <input type="hidden" id="classnum" name="classnum" maxlength="20" th:value="${student.classnum}">
+        <input type="hidden" id="studentno" name="studentno" maxlength="10" th:value="${student.no}">
+        <input type="hidden" id="subjectcd" name="subjectcd" maxlength="3" value="1">
+        <input type="hidden" id="schoolcd" name="schoolcd" maxlength="3" value="1">
+        <input type="hidden" id="no" name="no" maxlength="10" th:value="1">
+<!--        <input type="hidden" id="schoolcd" name="schoolcd" maxlength="3" th:value="${student.schoolcd}">-->
+    </tr>
+        </tbody>
+        
+</table>
+        	<button type="submit" class="btn">登録</button>
+	</form>
+</html>
+
 </body>
 </html>

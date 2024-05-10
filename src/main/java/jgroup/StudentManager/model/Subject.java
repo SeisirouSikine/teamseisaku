@@ -17,8 +17,8 @@ public class Subject {
     @Column
     private Long id;
     
-    @Column(name = "SCHOOL_CD", nullable = false, length = 3)
-    private String schoolCd;
+    @Column(name = "SCHOOLCD", nullable = false, length = 3)
+    private String schoolcd;
     
     @Column(name = "CD", nullable = false, length = 3)
     private String cd;

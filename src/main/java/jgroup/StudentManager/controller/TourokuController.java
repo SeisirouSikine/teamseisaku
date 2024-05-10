@@ -7,22 +7,32 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import io.micrometer.common.lang.NonNull;
 import jgroup.StudentManager.model.Student;
 import jgroup.StudentManager.model.Subject;
+import jgroup.StudentManager.model.Test;
 import jgroup.StudentManager.service.StudentService;
 import jgroup.StudentManager.service.SubjectService;
- 
+import jgroup.StudentManager.service.TestService;
+
+
 @Controller
 public class TourokuController {
 	@Autowired
     private StudentService studentService;
 	@Autowired
 	private SubjectService subjectService;
+	@Autowired
+	private TestService testService;
+
 	
 	// 全生徒を取得
 	@GetMapping("/gakuseikannri")
@@ -110,9 +120,50 @@ public class TourokuController {
 	
 	
 	@PostMapping("/seisekitouroku")
-	public String filterSubjects(Model model, @ModelAttribute("filterModel") Subject subject, Student student) {
-	    List<Subject> filteredSubjects = subjectService.filterSubjects(student.getEntyear(), student.getClassnum(), subject.getName());
-	    model.addAttribute("students", filteredSubjects);
-	    return "gakuseikannri";
+	public String filterSubjects(Model model,  Subject subject,  Student student,
+			@RequestParam("entyear") Integer entyear,@RequestParam("classnum") String classnum,@RequestParam("name") String name,@RequestParam("no") String no) {
+	    List<Student> filteredStudents = studentService.filterStudents(entyear,classnum);
+	    model.addAttribute("students", filteredStudents);
+	    System.out.println(entyear);
+	    System.out.println(classnum);
+	    System.out.println(name);
+	    System.out.println(no);
+	    System.out.println("------------------------");
+	    return "seisekitouroku";
 	}
+	
+
+
+	
+
+	
+	@PostMapping("/pointtouroku")
+	public String test(@Validated @ModelAttribute @NonNull Test test, RedirectAttributes result,
+		RedirectAttributes redirectAttributes) {
+		System.out.println(test);
+		try {
+			this.testService.save(test);
+			System.out.println("うんち");
+//			System.out.println(test);
+
+			redirectAttributes.addFlashAttribute("exception", "");
+			} catch (Exception e) {
+				redirectAttributes.addFlashAttribute("exception", e.getMessage());
+				}
+		return "/seisekikanryou";
+		}
+	
+	@GetMapping("/seisekikanryou")
+	public String index() {
+		
+		
+		return "seisekikanryou";
+	}
+	
+
+	
+	
+
 }
+
+

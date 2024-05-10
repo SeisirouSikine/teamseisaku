@@ -69,8 +69,8 @@
     <h2>学生情報変更</h2>
     <form method="POST" th:action="'/gakuseihensyu/' + ${student.id}" th:object="${student}">
         <div>
-            <label for="entYear">入学年度:</label>
-            <span th:text="${student.entYear}"></span><br>
+            <label for="entyear">入学年度:</label>
+            <span th:text="${student.entyear}"></span><br>
             <label for="no">学生番号:</label>
             <span th:text="${student.no}"></span><br>
         </div>
@@ -79,16 +79,16 @@
             <input type="text" id="name" name="name" th:value="${student.name}" required>
         </div>
         <div>
-            <label for="classNum">クラス:</label>
-            <select id="classNum" name="classNum">
-                <option value="101" th:selected="${student.classNum == '101'}">101</option>
-                <option value="102" th:selected="${student.classNum == '102'}">102</option>
-                <option value="103" th:selected="${student.classNum == '103'}">103</option>
+            <label for="classnum">クラス:</label>
+            <select id="classnum" name="classnum">
+                <option value="101" th:selected="${student.classnum == '101'}">101</option>
+                <option value="102" th:selected="${student.classnum == '102'}">102</option>
+                <option value="103" th:selected="${student.classnum == '103'}">103</option>
             </select>
         </div>
         <div>
-            <label for="isAttend">在学中:</label>
-            <input type="checkbox" id="isAttend" name="isAttend" th:checked="${student.isAttend}">
+            <label for="isattend">在学中:</label>
+            <input type="checkbox" id="isattend" name="isattend" th:checked="${student.isattend}">
         </div>
         <button type="submit">変更</button>
     </form>

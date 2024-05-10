@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -66,8 +66,8 @@
 <body>
     <h2>学生登録フォーム</h2>
     <form action="/gakuseitouroku" method="post" id="studentForm">
-        <label for="entYear">入学年度</label>
-        <select name="entYear" id="entYear">
+        <label for="entyear">入学年度</label>
+        <select name="entyear" id="entyear">
             <option value="2020">2020年</option>
             <option value="2021">2021年</option>
             <option value="2022">2022年</option>
@@ -75,18 +75,18 @@
             <option value="2024">2024年</option>
         </select>
         <label for="studentNo">学生番号</label>
-        <input type="text" id="studentNo" name="no" maxlength="10" placeholder="学生番号を入力してください">
-        <span class="error" id="studentNoError"></span>
+        <input type="text" id="studentno" name="no" maxlength="10" placeholder="学生番号を入力してください">
+        <span class="error" id="studentnoError"></span>
         <label for="studentName">氏名</label>
-        <input type="text" id="studentName" name="name" maxlength="30" placeholder="氏名を入力してください">
-        <span class="error" id="studentNameError"></span>
-        <label for="classNum">クラス</label>
-        <select name="classNum" id="classNum">
+        <input type="text" id="studentname" name="name" maxlength="30" placeholder="氏名を入力してください">
+        <span class="error" id="studentnameError"></span>
+        <label for="classnum">クラス</label>
+        <select name="classnum" id="classnum">
             <option value="101">101</option>
             <option value="102">102</option>
             <option value="103">103</option>
         </select>
-        <input type="hidden" id="isAttend" name="isAttend" th:value="true"/>
+        <input type="hidden" id="isattend" name="isattend" th:value="true"/>
         <button type="submit" name="end">登録して終了</button>
     </form>
     <a href="/">戻る</a>
