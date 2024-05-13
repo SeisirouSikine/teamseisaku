@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import io.micrometer.common.lang.NonNull;
 import jgroup.StudentManager.model.Student;
 import jgroup.StudentManager.model.Subject;
+import jgroup.StudentManager.model.Teacher;
 import jgroup.StudentManager.model.Test;
 import jgroup.StudentManager.service.StudentService;
 import jgroup.StudentManager.service.SubjectService;
@@ -109,25 +110,52 @@ public class TourokuController {
 	}
 	
 	
-	@GetMapping("/seisekitouroku")
-	public String getAllSubjects(@AuthenticationPrincipal UserDetails name, Model model) {
-		List<Subject> subjects = subjectService.getSubjectList();
-        model.addAttribute("subject", subjects);
-        model.addAttribute("user2",name);
-        return "seisekitouroku";
-	}
+//	@GetMapping("/seisekitouroku")
+//	public String getAllSubjects(@AuthenticationPrincipal UserDetails name, Model model) {
+//		List<Subject> subjects = subjectService.getSubjectList();
+//        model.addAttribute("subject", subjects);
+//        model.addAttribute("user2",name);
+//        return "seisekitouroku";
+//	}
+//
 	
+	
+	//成績登録のページ
+    @GetMapping("/seisekitouroku")
+  public String getAllStudents(Model model, @AuthenticationPrincipal Teacher teacher, @AuthenticationPrincipal Student student, @AuthenticationPrincipal Subject subject) {
+        // 学校コード
+          Test test = new Test();
+         String schoolcd = teacher.getSchoolcd();
+        List<Test> students = testService.getAllStudentsBySchoolcd(schoolcd);
+        model.addAttribute("tests", students);
+        model.addAttribute("testmodel",test);
+
+        // Studentmodel
+        List<Student> studentList = studentService.getStudentEntyear(schoolcd);
+        model.addAttribute("student", studentList);
+      
+        // SubjectModel
+        List<Subject> subjectcd = subjectService.getAllSubjectBySchoolcd(schoolcd);
+        model.addAttribute("subjectcd", subjectcd);
+        return "seisekitouroku";
+    }
 	
 	
 	@PostMapping("/seisekitouroku")
-	public String filterSubjects(Model model,  Subject subject,  Student student,
-			@RequestParam("entyear") Integer entyear,@RequestParam("classnum") String classnum,@RequestParam("name") String name,@RequestParam("no") Integer no, @RequestParam("cd") String cd) {
-	    List<Student> filteredStudents = studentService.filterStudents(entyear,classnum);
-	    model.addAttribute("students", filteredStudents);
-        model.addAttribute("name", name);
-        model.addAttribute("no", no);
-        model.addAttribute("cd", cd);
-	    
+	public String getFilteredStudents(
+            @RequestParam(name= "entyear" , required = false) Integer entyear,
+            @RequestParam(name= "classnum" , required = false) String classnum,
+            @RequestParam(name= "cd" , required = false) String cd,
+            @RequestParam(name= "no" , required = false) String no,
+            Model model) {
+        System.out.println(entyear);
+        System.out.println(classnum);
+        System.out.println(cd);
+        System.out.println(no);
+
+        model.addAttribute("cd",	cd);
+        model.addAttribute("no",no);
+        model.addAttribute("test",testService.Test(entyear,classnum));
 	    return "seisekitouroku";
 	}
  

@@ -134,6 +134,11 @@ public class SubjectService {
 			return null;
 		}
 
+		public List<Subject> getAllSubjectBySchoolcd(String schoolcd) {
+			// TODO 自動生成されたメソッド・スタブ
+			return null;
+		}
+
 
 
 

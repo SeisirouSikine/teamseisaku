@@ -44,5 +44,11 @@ public class StudentService {
     public List<Student> filterStudents(Integer Entyear, String Classnum) {
         return studentRepository.findByEntyearAndClassnum(Entyear, Classnum);
     }
+
+
+	public List<Student> getStudentEntyear(String schoolcd) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
     
 }

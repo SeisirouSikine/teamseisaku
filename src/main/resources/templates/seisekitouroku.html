@@ -54,7 +54,7 @@
 			<select name="name" id="name">
 				<tr th:each="subject : ${subject}" >
 					<option value="">------</option>
-					<option th:text="${subject.name}"><td style="vertical-align: top; text-align: center;" th:text="${subject.name}"></td></option>
+					<option th:value="${subject.cd}"><td style="vertical-align: top; text-align: center;" th:text="${subject.name}"></td></option>
 
 				</tr>
 				
@@ -112,14 +112,14 @@
 	        </td>
 	        <input type="hidden" id="classnum" name="classnum" maxlength="20" th:value="${student.classnum}">
 	        <input type="hidden" id="studentno" name="studentno" maxlength="10" th:value="${student.no}">
-	        <input type="hidden" id="subjectcd" name="subjectcd" maxlength="3" th:value="${name}">
+	        <input type="hidden" id="subjectcd" name="subjectcd" maxlength="3" th:value="${subject.cd}">
 	        <input type="hidden" id="schoolcd" name="schoolcd" maxlength="3" value="1">
 	        <input type="hidden" id="no" name="no" maxlength="10" th:value="${no}">
 	    </tr>
 	        </tbody>
 	        
 		</table>
-	     		<button type="submit" class="btn">登録</button>
+	     				<button type="submit" class="btn">登録</button>
 			</form>
 		</html>
 	

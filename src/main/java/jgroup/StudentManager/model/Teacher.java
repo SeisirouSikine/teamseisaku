@@ -14,7 +14,7 @@ public class Teacher {
     @Column(name = "ID", nullable = false, length = 10)
     private String id;
     
-    @Column(name = "PASSWORD", length = 30)
+    @Column(name = "PASSWORD", length = 256)
     private String password;
     
     @Column(name = "NAME", length = 10)
