@@ -121,17 +121,16 @@ public class TourokuController {
 	
 	@PostMapping("/seisekitouroku")
 	public String filterSubjects(Model model,  Subject subject,  Student student,
-			@RequestParam("entyear") Integer entyear,@RequestParam("classnum") String classnum,@RequestParam("name") String name,@RequestParam("no") String no) {
+			@RequestParam("entyear") Integer entyear,@RequestParam("classnum") String classnum,@RequestParam("name") String name,@RequestParam("no") Integer no, @RequestParam("cd") String cd) {
 	    List<Student> filteredStudents = studentService.filterStudents(entyear,classnum);
 	    model.addAttribute("students", filteredStudents);
-	    System.out.println(entyear);
-	    System.out.println(classnum);
-	    System.out.println(name);
-	    System.out.println(no);
-	    System.out.println("------------------------");
+        model.addAttribute("name", name);
+        model.addAttribute("no", no);
+        model.addAttribute("cd", cd);
+	    
 	    return "seisekitouroku";
 	}
-	
+ 
 
 
 	

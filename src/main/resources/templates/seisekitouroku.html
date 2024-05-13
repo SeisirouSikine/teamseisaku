@@ -54,7 +54,7 @@
 			<select name="name" id="name">
 				<tr th:each="subject : ${subject}" >
 					<option value="">------</option>
-					<option value="cd"><td style="vertical-align: top; text-align: center;" th:text="${subject.name}"></td></option>
+					<option th:text="${subject.name}"><td style="vertical-align: top; text-align: center;" th:text="${subject.name}"></td></option>
 
 				</tr>
 				
@@ -84,41 +84,44 @@
 
 <div id="searchResultCount"></div>
 
+	<h3><span th:text="${no}"></span><span th:text="${name}"></span></h3>
 	<form th:object="${test}" th:action="@{/pointtouroku}" method="post" style="display: flex;">
-<table>
-    <thead>
-    <tr>
-        <th>入学年度</th>
-        <th>クラス</th>
-        <th>学生番号</th>
-        <th>氏名</th>
-        <th>点数</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Rows for student records -->
-    <tr th:each="student : ${students}" th:if="${student.isattend != false}">
-        <td th:text="${student.entyear}"></td>
-        <td th:text="${student.classnum}"></td>
-        <td th:text="${student.no}" ></td>
-        <td th:text="${student.name}"></td>
-        <!-- Include other columns as needed -->
-        <td>
-        <input type="text" id="point" name="point" maxlength="10" >
-        </td>
-        <input type="hidden" id="classnum" name="classnum" maxlength="20" th:value="${student.classnum}">
-        <input type="hidden" id="studentno" name="studentno" maxlength="10" th:value="${student.no}">
-        <input type="hidden" id="subjectcd" name="subjectcd" maxlength="3" value="1">
-        <input type="hidden" id="schoolcd" name="schoolcd" maxlength="3" value="1">
-        <input type="hidden" id="no" name="no" maxlength="10" th:value="1">
-<!--        <input type="hidden" id="schoolcd" name="schoolcd" maxlength="3" th:value="${student.schoolcd}">-->
-    </tr>
-        </tbody>
-        
-</table>
-        	<button type="submit" class="btn">登録</button>
-	</form>
-</html>
-
-</body>
-</html>
+	<table>
+		<div style="margin-right: 10px;">
+		</div>
+	    <thead>
+		
+	    <tr>
+	        <th>入学年度</th>
+	        <th>クラス</th>
+	        <th>学生番号</th>
+	        <th>氏名</th>
+	        <th>点数</th>
+	    </tr>
+	    </thead>
+	    <tbody>
+	    <!-- Rows for student records -->
+	    <tr th:each="student : ${students}" th:if="${student.isattend != false}">
+	        <td th:text="${student.entyear}"></td>
+	        <td th:text="${student.classnum}"></td>
+	        <td th:text="${student.no}" ></td>
+	        <td th:text="${student.name}"></td>
+	        <!-- Include other columns as needed -->
+	        <td>
+	        <input type="text" id="point" name="point" maxlength="10" >
+	        </td>
+	        <input type="hidden" id="classnum" name="classnum" maxlength="20" th:value="${student.classnum}">
+	        <input type="hidden" id="studentno" name="studentno" maxlength="10" th:value="${student.no}">
+	        <input type="hidden" id="subjectcd" name="subjectcd" maxlength="3" th:value="${name}">
+	        <input type="hidden" id="schoolcd" name="schoolcd" maxlength="3" value="1">
+	        <input type="hidden" id="no" name="no" maxlength="10" th:value="${no}">
+	    </tr>
+	        </tbody>
+	        
+		</table>
+	     		<button type="submit" class="btn">登録</button>
+			</form>
+		</html>
+	
+	</body>
+	</html>
