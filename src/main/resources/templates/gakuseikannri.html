@@ -10,6 +10,19 @@
             margin: 0;
             padding: 0;
             display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 20%;
+            background-color: #f2f2f2;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
             flex-direction: column;
         }
         header {
@@ -19,8 +32,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 80%;
-            margin: auto;
+            margin-bottom: 20px;
             border: 2px solid #007bff;
             border-radius: 5px;
         }
@@ -30,19 +42,6 @@
         }
         #logout {
             font-size: 12px;
-        }
-        #sidebar {
-            width: 200px;
-            background-color: #f2f2f2;
-            padding: 20px;
-            float: left;
-        }
-        #content {
-            flex-grow: 1;
-            padding: 20px;
-            width: 80%;
-            margin: auto;
-            float: right;
         }
         h2 {
             text-align: center;
@@ -91,56 +90,65 @@
             background-color: #f8d7da;
             border-color: #f5c6cb;
         }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #f2f2f2;
+            color: #000;
+            border-radius: 3px;
+            margin-top: auto;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>得点管理システム</h1>
-<!--        <div id="logout">-->
-<!--			<span th:text="ログイン中のユーザー + ${user2.username}"></span>-->
-<!--        	<a href="/logout">ログアウト</a>-->
-<!--    	</div>-->
-    </header>
-    <div id="content">
-        <div id="sidebar">
-            <ul>
-                <li><a href="/">メニュー</a></li>
-                <li><a href="/gakuseitouroku">新規登録</a></li>
-                <li><a href="/kamokukannri">科目管理</a></li>
-            </ul>
-        </div>
-        <h2>学生管理</h2>
-        <form id="filterForm" th:action="@{/gakuseikannri}" method="post" style="display: flex;">
-    <div style="margin-right: 10px;">
-        <label for="entyear">入学年度</label>
-        <select name="entyear" id="entyear">
-            <option value="">------</option>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-            <option value="2025">2025</option>
-        </select>
+    <div class="sidebar">
+        <ul>
+            <a href="/">メニュー</a><br>
+            <li><a href="gakuseikannri">学生管理</a></li>
+            <li><a href="/seisekitouroku">成績登録</a></li>
+            <li><a href="成績参照のURL">成績参照</a></li>
+            <li><a href="/kamokukannri">科目管理</a></li>
+        </ul>
     </div>
-    <div style="margin-right: 10px;">
-        <label for="class">クラス</label>
-        <select name="classnum" id="classnum">
-            <option value="">------</option>
-            <option value="101">101</option>
-            <option value="102">102</option>
-            <option value="103">103</option>
-        </select>
-    </div>
-    <div style="margin-right: 10px;">
-    <label for="isattend">在学中</label>
-    <input type="checkbox" id="isattend" name="isattend">
-</div>
+    <div class="content">
+        <header>
+            <h1>得点管理システム</h1>
+            <!-- <div id="logout">
+                <span th:text="ログイン中のユーザー + ${user2.username}"></span>
+                <a href="/logout">ログアウト</a>
+            </div> -->
+        </header>
 
-    
- 
-    <button type="submit" id="filterButton" class="btn">絞り込む</button>
-</form>
+        <h2>学生管理</h2>
+        <li><a href="/gakuseitouroku" align="right">学生登録</a></li>
+        <form id="filterForm" th:action="@{/gakuseikannri}" method="post" style="display: flex;">
+            <div style="margin-right: 10px;">
+                <label for="entyear">入学年度</label>
+                <select name="entyear" id="entyear">
+                    <option value="">------</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                </select>
+            </div>
+            <div style="margin-right: 10px;">
+                <label for="class">クラス</label>
+                <select name="classnum" id="classnum">
+                    <option value="">------</option>
+                    <option value="101">101</option>
+                    <option value="102">102</option>
+                    <option value="103">103</option>
+                </select>
+            </div>
+            <div style="margin-right: 10px;">
+                <label for="isattend">在学中</label>
+                <input type="checkbox" id="isattend" name="isattend">
+            </div>
+            <button type="submit" id="filterButton" class="btn">絞り込む</button>
+        </form>
 
         <div id="searchResultCount"></div>
 
@@ -160,23 +168,29 @@
                 <tr th:each="student : ${students}" th:if="${student.isattend != false}">
                     <td style="vertical-align: top; text-align: left;" th:text="${student.entyear}"></td>
                     <td style="vertical-align: top; text-align: left;" th:text="${student.no}"></td>   
-                    <td style="vertical-align: top; text-align: left;" th:text="${student.name}"></td> 
-                    <td style="vertical-align: top; text-align: left;" th:text="${student.classnum}"></td> 
+                    <td style="vertical-align: top; text-align: left;" th:text="${student.name}"></td>
+                    <td style="vertical-align: top; text-align: left;" th:text="${student.classnum}"></td>
                     <td style="vertical-align: top; text-align: left;" th:text="${student.isattend == null ? '×' : (student.isattend ? '〇' : '×')}"></td>
-
                     <td style="vertical-align: top; text-align: left;">
                         <a th:href="@{/gakuseihensyu/{id}(id=${student.id})}">変更</a>
-                    </td> 
+                    </td>
                     <td style="vertical-align: top; text-align: left;">
                         <a th:href="@{'/delete/' + ${student.id}}">消去</a>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </div>
-    <div th:if="${#lists.isEmpty(students)}" class="text-center">
-        データなし
-    </div>
 
+        <div th:if="${#lists.isEmpty(students)}" class="text-center">
+            データなし
+        </div>
+        <footer>
+            <p>©2023 TIC</p>
+            <p>大原学園</p>
+            <a href="/" class="d-flex align-items-center justify-content-center link-body-emphasis text-decoration-none">
+                <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+            </a>
+        </footer>
+    </div>
 </body>
 </html>

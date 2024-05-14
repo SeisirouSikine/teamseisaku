@@ -9,7 +9,36 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 20%;
             background-color: #f2f2f2;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background-color: #f2f2f2;
+            color: #000;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+        }
+        h1 {
+            margin: 0;
+            padding: 0;
         }
         h2 {
             text-align: center;
@@ -63,35 +92,66 @@
         a:hover {
             text-decoration: underline;
         }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #f2f2f2;
+            color: #000;
+            border-radius: 3px;
+            margin-top: auto;
+        }
     </style>
 </head>
 <body>
-    <h2>学生情報変更</h2>
-    <form method="POST" th:action="'/gakuseihensyu/' + ${student.id}" th:object="${student}">
-        <div>
-            <label for="entyear">入学年度:</label>
-            <span th:text="${student.entyear}"></span><br>
-            <label for="no">学生番号:</label>
-            <span th:text="${student.no}"></span><br>
-        </div>
-        <div>
-            <label for="name">氏名:</label>
-            <input type="text" id="name" name="name" th:value="${student.name}" required>
-        </div>
-        <div>
-            <label for="classnum">クラス:</label>
-            <select id="classnum" name="classnum">
-                <option value="101" th:selected="${student.classnum == '101'}">101</option>
-                <option value="102" th:selected="${student.classnum == '102'}">102</option>
-                <option value="103" th:selected="${student.classnum == '103'}">103</option>
-            </select>
-        </div>
-        <div>
-            <label for="isattend">在学中:</label>
-            <input type="checkbox" id="isattend" name="isattend" th:checked="${student.isattend}">
-        </div>
-        <button type="submit">変更</button>
-    </form>
-    <a href="/gakuseikannri">戻る</a>
+    <div class="sidebar">
+        <ul>
+            <a href="/">メニュー</a><br>
+            <li><a href="/gakuseikannri">学生管理</a></li>
+            <li><a href="/seisekitouroku">成績登録</a></li>
+            <li><a href="成績参照のURL">成績参照</a></li>
+            <li><a href="/kamokukannri">科目管理</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <header>
+            <h1>得点管理システム</h1>
+            <div id="logout">
+                <a href="/logout">ログアウト</a>
+            </div>
+        </header>
+        <h2>学生情報変更</h2>
+        <form method="POST" th:action="'/gakuseihensyu/' + ${student.id}" th:object="${student}">
+            <div>
+                <label for="entyear">入学年度:</label>
+                <span th:text="${student.entyear}"></span><br>
+                <label for="no">学生番号:</label>
+                <span th:text="${student.no}"></span><br>
+            </div>
+            <div>
+                <label for="name">氏名:</label>
+                <input type="text" id="name" name="name" th:value="${student.name}" required>
+            </div>
+            <div>
+                <label for="classnum">クラス:</label>
+                <select id="classnum" name="classnum">
+                    <option value="101" th:selected="${student.classnum == '101'}">101</option>
+                    <option value="102" th:selected="${student.classnum == '102'}">102</option>
+                    <option value="103" th:selected="${student.classnum == '103'}">103</option>
+                </select>
+            </div>
+            <div>
+                <label for="isattend">在学中:</label>
+                <input type="checkbox" id="isattend" name="isattend" th:checked="${student.isattend}">
+            </div>
+            <button type="submit">変更</button>
+        </form>
+        <footer>
+            <p>©2023 TIC</p>
+            <p>大原学園</p>
+            <a href="/" class="d-flex align-items-center justify-content-center link-body-emphasis text-decoration-none">
+                <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+            </a>
+        </footer>
+    </div>
 </body>
 </html>

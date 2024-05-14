@@ -37,14 +37,14 @@ public class TourokuController {
 	@Autowired
 	private UserDetailsServiceImpl teacherService;
 
-	
+
+
 	// 全生徒を取得
 	@GetMapping("/gakuseikannri")
-	public String getAllStudents(@AuthenticationPrincipal Teacher teacher, Model model) {
-		String schoolcd = teacher.getSchoolcd();
-		List<Student> students = studentService.getStudentList(schoolcd);
+	public String getAllStudents(@AuthenticationPrincipal UserDetails user, Model model) {
+		List<Student> students = studentService.getStudentList();
         model.addAttribute("students", students);
-        model.addAttribute("user2",teacher);
+        model.addAttribute("user2",user);
         return "gakuseikannri";
 	}
 	

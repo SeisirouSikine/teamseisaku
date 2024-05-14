@@ -4,16 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>メニュー</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .sidebar {
+            width: 20%;
+            padding: 20px;
+ 
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+        header {
+            background-color: #f2f2f2;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 5px 5px 0 0;
+        }
+        h1 {
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+			background-color:#f2f2f2;
+		}
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #f2f2f2;
+            color: #000;
+            border-radius: 0 0 5px 5px;
+        }
+        .gakuseikan {
+			display: table-cell;
+			align-items: center;
+			text-align:center;
+			border-radius:10px;
+			background-color:rgb(255, 213, 219);
+			padding: 30px;
+			width: 180px;
+        }
+        .seisekitou {
+			display: table-cell;
+			align-items: center;
+			text-align:center;
+			border-radius:10px;
+			background-color:rgb(227, 254, 203);
+			padding: 30px;
+			width: 180px;
+        }
+        .kamokukan {
+			display: table-cell;
+			align-items: center;
+			text-align:center;
+			border-radius:10px;
+			background-color:rgb(184, 184, 220);
+			padding: 30px;
+			width: 180px;
+        }
+        .block {
+			display:flex;
+		}
+    </style>
 </head>
 <body>
-    <h1>メニュー</h1>
+<div class="sidebar">
     <ul>
+		<a href="/">メニュー</a><br>
         <li><a href="gakuseikannri">学生管理</a></li>
         <li><a href="/seisekitouroku">成績登録</a></li>
         <li><a href="成績参照のURL">成績参照</a></li>
 		<li><a href="/kamokukannri">科目管理</a></li>
     </ul>
-    
-    
+</div>
+<div class="content">
+    <header>
+        <h1>得点管理システム</h1>
+    </header>
+    <h2>メニュー</h2>
+    <div class="block">
+		<div class="gakuseikan">
+    		<a href="gakuseikannri">学生管理</a>
+		</div>
+		<div class="seisekitou">
+			成績管理<br>
+        	<a href="seisekitouroku">成績登録</a><br>
+        	<a href="seisekisansyou">成績参照</a>
+		</div>
+    	<div class="kamokukan">
+    		<a href="kamokukannri">科目管理</a>
+		</div>
+	</div>
+    <footer>
+        <p>©2023 TIC</p>
+        <p>大原学園</p>
+        <a href="/" class="d-flex align-items-center justify-content-center link-body-emphasis text-decoration-none">
+            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+        </a>
+    </footer>
+</div>
 </body>
 </html>
+ 

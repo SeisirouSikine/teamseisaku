@@ -14,8 +14,8 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public List<Student> getStudentList(String schoolcd) {
-        return studentRepository.findBySchoolCd(schoolcd);
+    public List<Student> getStudentList() {
+        return studentRepository.findAll();
     }
 
 
