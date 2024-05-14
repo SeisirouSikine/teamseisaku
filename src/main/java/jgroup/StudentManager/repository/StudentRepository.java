@@ -11,5 +11,6 @@ import jgroup.StudentManager.model.Student;
 public interface StudentRepository extends JpaRepository<Student, Long> {
 	List<Student> findByEntyearAndClassnumAndIsattend(Integer Entyear, String Classnum, boolean Isattend);
 	List<Student> findByEntyearAndClassnum(Integer entyear, String classnum);
+	List<Student> findBySchoolCd(String schoolcd);
 
 }

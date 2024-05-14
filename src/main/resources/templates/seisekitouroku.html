@@ -51,10 +51,10 @@
 
 	<div style="margin-right: 10px;">
 		<label for="name">科目</label>
-			<select name="name" id="name">
-				<tr th:each="subject : ${subject}" >
+			<select name="cd" id="cd">
+				<tr th:each="subjectcd : ${subjectcd}" >
 					<option value="">------</option>
-					<option th:value="${subject.cd}"><td style="vertical-align: top; text-align: center;" th:text="${subject.name}"></td></option>
+					<option th:value="${subjectcd.cd}"><td style="vertical-align: top; text-align: center;" th:text="${subjectcd.name}"></td></option>
 
 				</tr>
 				
@@ -101,19 +101,19 @@
 	    </thead>
 	    <tbody>
 	    <!-- Rows for student records -->
-	    <tr th:each="student : ${students}" th:if="${student.isattend != false}">
-	        <td th:text="${student.entyear}"></td>
-	        <td th:text="${student.classnum}"></td>
-	        <td th:text="${student.no}" ></td>
-	        <td th:text="${student.name}"></td>
+	    <tr th:each="test : ${test}" th:if="${test.isattend != false}">
+	        <td th:text="${test.entyear}"></td>
+	        <td th:text="${test.classnum}"></td>
+	        <td th:text="${test.no}" ></td>
+	        <td th:text="${test.name}"></td>
 	        <!-- Include other columns as needed -->
 	        <td>
-	        <input type="text" id="point" name="point" maxlength="10" >
+	        <input type="text" id="point" name="point" maxlength="10" class="form-controll">
 	        </td>
-	        <input type="hidden" id="classnum" name="classnum" maxlength="20" th:value="${student.classnum}">
-	        <input type="hidden" id="studentno" name="studentno" maxlength="10" th:value="${student.no}">
-	        <input type="hidden" id="subjectcd" name="subjectcd" maxlength="3" th:value="${subject.cd}">
-	        <input type="hidden" id="schoolcd" name="schoolcd" maxlength="3" value="1">
+	        <input type="hidden" id="classnum" name="classnum" maxlength="20" th:value="${test.classnum}">
+	        <input type="hidden" id="studentno" name="studentno" maxlength="10" th:value="${test.no}">
+	        <input type="hidden" id="subjectcd" name="subjectcd" maxlength="3" th:value="${cd}">
+	        <input type="hidden" id="schoolcd" name="schoolcd" maxlength="3" th:value="${test.schoolcd}">
 	        <input type="hidden" id="no" name="no" maxlength="10" th:value="${no}">
 	    </tr>
 	        </tbody>

@@ -23,6 +23,7 @@ import jgroup.StudentManager.model.Test;
 import jgroup.StudentManager.service.StudentService;
 import jgroup.StudentManager.service.SubjectService;
 import jgroup.StudentManager.service.TestService;
+import jgroup.StudentManager.service.UserDetailsServiceImpl;
 
 
 @Controller
@@ -33,14 +34,17 @@ public class TourokuController {
 	private SubjectService subjectService;
 	@Autowired
 	private TestService testService;
+	@Autowired
+	private UserDetailsServiceImpl teacherService;
 
 	
 	// 全生徒を取得
 	@GetMapping("/gakuseikannri")
-	public String getAllStudents(@AuthenticationPrincipal UserDetails user, Model model) {
-		List<Student> students = studentService.getStudentList();
+	public String getAllStudents(@AuthenticationPrincipal Teacher teacher, Model model) {
+		String schoolcd = teacher.getSchoolcd();
+		List<Student> students = studentService.getStudentList(schoolcd);
         model.addAttribute("students", students);
-        model.addAttribute("user2",user);
+        model.addAttribute("user2",teacher);
         return "gakuseikannri";
 	}
 	
@@ -64,7 +68,8 @@ public class TourokuController {
     }
 	
 	@PostMapping("/gakuseitouroku")
-	public String saveStudent(Model model, @ModelAttribute("studentModel") Student student) {
+	public String saveStudent(Model model, @ModelAttribute("student") Student student) {
+		System.out.println("aaaaa");
     	try {
 			studentService.saveStudent(student);
         	return "redirect:/gtg";
@@ -110,35 +115,33 @@ public class TourokuController {
 	}
 	
 	
-//	@GetMapping("/seisekitouroku")
-//	public String getAllSubjects(@AuthenticationPrincipal UserDetails name, Model model) {
-//		List<Subject> subjects = subjectService.getSubjectList();
-//        model.addAttribute("subject", subjects);
-//        model.addAttribute("user2",name);
-//        return "seisekitouroku";
-//	}
-//
-	
-	
-	//成績登録のページ
-    @GetMapping("/seisekitouroku")
-  public String getAllStudents(Model model, @AuthenticationPrincipal Teacher teacher, @AuthenticationPrincipal Student student, @AuthenticationPrincipal Subject subject) {
-        // 学校コード
-          Test test = new Test();
-         String schoolcd = teacher.getSchoolcd();
-        List<Test> students = testService.getAllStudentsBySchoolcd(schoolcd);
-        model.addAttribute("tests", students);
-        model.addAttribute("testmodel",test);
+	@GetMapping("/seisekitouroku")
+	public String getAllSubjects(@AuthenticationPrincipal UserDetails user, Model model) {
+	    List<Subject> subjects = subjectService.getSubjectList();
+	    model.addAttribute("subjectcd", subjects);
+	    
+	    String userid = user.getUsername();
+	    System.out.println(userid);
+	    System.out.println("^-------------^");
+	    Test test = new Test();
+	    System.out.println(test);
+	    System.out.println("^^");
+	    // 教師テーブルからuseridをキーとして一人分データ取得
+	    Teacher teacher = teacherService.getTeacherByName(userid);
+	    System.out.println(teacher);
+	    System.out.println("-------------^");
+	    // 取得した教師データからschoolcdを取得
+	    String schoolcd = teacher.getSchoolcd();
+	    System.out.println(schoolcd);
+	    System.out.println("^-------------^");
+	    List<Test> students = testService.getAllStudentsBySchoolcd(schoolcd);
+	    model.addAttribute("tests", students);
+	    model.addAttribute("testmodel", test);
+	    model.addAttribute("students",schoolcd);
+	    
+	    return "seisekitouroku";
+	}
 
-        // Studentmodel
-        List<Student> studentList = studentService.getStudentEntyear(schoolcd);
-        model.addAttribute("student", studentList);
-      
-        // SubjectModel
-        List<Subject> subjectcd = subjectService.getAllSubjectBySchoolcd(schoolcd);
-        model.addAttribute("subjectcd", subjectcd);
-        return "seisekitouroku";
-    }
 	
 	
 	@PostMapping("/seisekitouroku")
@@ -153,7 +156,7 @@ public class TourokuController {
         System.out.println(cd);
         System.out.println(no);
 
-        model.addAttribute("cd",	cd);
+        model.addAttribute("cd",cd);
         model.addAttribute("no",no);
         model.addAttribute("test",testService.Test(entyear,classnum));
 	    return "seisekitouroku";

@@ -1,3 +1,4 @@
+
 package jgroup.StudentManager.model;
  
 import jakarta.persistence.Column;
@@ -8,20 +9,30 @@ import lombok.Data;
  
 @Entity
 @Data
+
 @Table(name = "TEACHER")
+
 public class Teacher {
+
     @Id
+
     @Column(name = "ID", nullable = false, length = 10)
+
     private String id;
-    
+
     @Column(name = "PASSWORD", length = 256)
+
     private String password;
-    
+
     @Column(name = "NAME", length = 10)
+
     private String name;
-    
-    @Column(name = "SCHOOLCD", length = 3)
+
+    @Column(name = "SCHOOLCD", length = 3, nullable = true) // NULLを許容するように修正
+
     private String schoolcd;
-    
+
 
 }
+
+
