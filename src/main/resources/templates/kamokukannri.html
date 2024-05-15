@@ -3,16 +3,15 @@
         <thead>
         <tr>
             <th>科目コード</th>
-            <th>学生番号</th>
-            <th>学生名</th>
-            <th>クラス番号</th>
+            <th>科目名</th>
+
         </tr>
         </thead>
         <tbody>
         <tr th:each="subject : ${subjectList}">
             <td th:text="${subject.cd}"></td>
             <td th:text="${subject.name}"></td>
-            <td th:text="${subject.schoolcd}"></td>
+
             
            <td>
            	  <a class="btn btn-warning" th:href="@{/hyoujikamoku/{id}(id=${subject.id})}">変更</a>
